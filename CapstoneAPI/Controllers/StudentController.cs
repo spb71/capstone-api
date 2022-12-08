@@ -10,6 +10,10 @@ namespace CapstoneAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
+
+
+
+
         protected APIResponse _response;
         private readonly IStudentRepo _dbStudent;
         private readonly IMapper _mapper;
@@ -39,5 +43,6 @@ namespace CapstoneAPI.Controllers
             }
             return _response;
         }
+
     }
 }
