@@ -7,5 +7,7 @@ namespace CapstoneAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
+
+
     }
 }
