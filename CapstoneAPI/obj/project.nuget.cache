@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OpQ7akhNrZ8o3sLKAvNCHxuzdAsZPzWT9JW8IRnrQPNXj1gQ5CZ0sHZIcILvMjHbfi8O8lnscDb+o7W+fVtVDg==",
+  "dgSpecHash": "XClHeZXkdJRM1jGRpzJjAy59/hcZWyVc2fvaD0/jsZ9Dwsip4DYag9sryWXPqUuH7d5GOuLZGHHCRCAotQuTjg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\shemb\\c-Sharp\\CapstoneAPI\\CapstoneAPI\\CapstoneAPI.csproj",
+  "projectFilePath": "C:\\Users\\shemb\\source\\repos\\CapstoneAPI\\CapstoneAPI\\CapstoneAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\shemb\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\shemb\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
