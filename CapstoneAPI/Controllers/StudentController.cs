@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using CapstoneAPI.Models;
+using CapstoneAPI.Models.Dto;
 using CapstoneAPI.Repo.IRepo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Text.Json;
 
 namespace CapstoneAPI.Controllers
 {
@@ -35,6 +38,14 @@ namespace CapstoneAPI.Controllers
             try
             {
                 IEnumerable<Student> studentList;
+
+                studentList = await _dbStudent.GetAllAsync();
+
+
+
+                _response.Result = _mapper.Map<List<StudentDto>>(studentList);
+                _response.StatusCode = HttpStatusCode.OK;
+                return Ok(_response);
             }
             catch (Exception ex)
             {

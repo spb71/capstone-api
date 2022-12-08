@@ -13,8 +13,8 @@ namespace CapstoneAPI.Models.Dto
         [Required]
         [Display(Name = "Date of Birth")]
         public DateTime dateOfBirth { get; set; }
-        public virtual ICollection<CourseDto> Courses { get; set; }
-        public virtual ICollection<GradeDto> Grades { get; set; }
+        //public virtual ICollection<CourseDto> Courses { get; set; }
+        //public virtual ICollection<GradeDto> Grades { get; set; }
 
     }
 }
