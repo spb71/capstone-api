@@ -95,7 +95,7 @@ namespace CapstoneAPI.Controllers
             {
                 if (await _dbStudent.GetAsync(u => u.Name.ToLower() == createDTO.Name.ToLower()) != null)
                 {
-                    ModelState.AddModelError("ErrorMessages", "Villa already Exists!");
+                    ModelState.AddModelError("ErrorMessages", "Student already Exists!");
                     return BadRequest(ModelState);
                 }
 

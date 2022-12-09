@@ -166,3 +166,4 @@ C:\Users\nickb\Programming\Projects_C\Jump Study C\Projects\APICap\capstone-api\
 C:\Users\nickb\Programming\Projects_C\Jump Study C\Projects\APICap\capstone-api\CapstoneAPI\obj\Debug\net7.0\CapstoneAPI.pdb
 C:\Users\nickb\Programming\Projects_C\Jump Study C\Projects\APICap\capstone-api\CapstoneAPI\obj\Debug\net7.0\CapstoneAPI.genruntimeconfig.cache
 C:\Users\nickb\Programming\Projects_C\Jump Study C\Projects\APICap\capstone-api\CapstoneAPI\obj\Debug\net7.0\ref\CapstoneAPI.dll
+C:\Users\nickb\Programming\Projects_C\Jump Study C\Projects\APICap\capstone-api\CapstoneAPI\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

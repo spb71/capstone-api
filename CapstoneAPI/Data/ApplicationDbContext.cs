@@ -14,10 +14,11 @@ namespace CapstoneAPI.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Grade> Grades { get; set; }
+		public DbSet<User> Users { get; set; }
 
 
-        //Initializing for many to * relationship seeding
-        static Student nick = new Student
+		//Initializing for many to * relationship seeding
+		static Student nick = new Student
         {
             Id = 1,
             Name = "Nick Dude",
@@ -145,8 +146,21 @@ namespace CapstoneAPI.Data
                 }
                 );
 
+            modelBuilder.Entity<User>().HasData(
+                new User
+                { 
+                    Id = 1,
+                    Username= "ElNicko",
+                    Name="Nick Dude",
+                    Password="pass",
+                    Role = "King"
 
-        }
+                }
+                );
+
+
+
+		}
 
     }
 }
