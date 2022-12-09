@@ -5,7 +5,6 @@ using CapstoneAPI.Repo.IRepo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Text.Json;
 
 namespace CapstoneAPI.Controllers
 {
@@ -13,10 +12,6 @@ namespace CapstoneAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-
-
-
-
         protected APIResponse _response;
         private readonly IStudentRepo _dbStudent;
         private readonly IMapper _mapper;
@@ -55,5 +50,135 @@ namespace CapstoneAPI.Controllers
             return _response;
         }
 
+        [HttpGet("{id:int}", Name = "GetStudent")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<APIResponse>> GetStudent(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    return BadRequest(_response);
+                }
+                var student = await _dbStudent.GetAsync(u => u.Id == id);
+                if (student == null)
+                {
+                    _response.StatusCode = HttpStatusCode.NotFound;
+                    return NotFound(_response);
+                }
+                _response.Result = _mapper.Map<StudentDto>(student);
+                _response.StatusCode = HttpStatusCode.OK;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<APIResponse>> CreateStudent([FromBody] StudentCreateDTO createDTO)
+        {
+            try
+            {
+                if (await _dbStudent.GetAsync(u => u.Name.ToLower() == createDTO.Name.ToLower()) != null)
+                {
+                    ModelState.AddModelError("ErrorMessages", "Villa already Exists!");
+                    return BadRequest(ModelState);
+                }
+
+                if (createDTO == null)
+                {
+                    return BadRequest(createDTO);
+                }
+
+                Student student = _mapper.Map<Student>(createDTO);
+
+                await _dbStudent.CreateAsync(student);
+                _response.Result = _mapper.Map<StudentDto>(student);
+                _response.StatusCode = HttpStatusCode.Created;
+                return CreatedAtRoute("GetVilla", new { id = student.Id }, _response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpPut("{id:int}", Name = "UpdateStudent")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<APIResponse>> UpdateStudent(int id, [FromBody] StudentUpdateDTO updateDTO)
+        {
+            try
+            {
+                if (updateDTO == null || id != updateDTO.Id)
+                {
+                    return BadRequest();
+                }
+
+                Student student = _mapper.Map<Student>(updateDTO);
+
+                await _dbStudent.UpdateAsync(student);
+                _response.StatusCode = HttpStatusCode.NoContent;
+                _response.IsSuccess = true;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpDelete("{id:int}", Name = "DeleteStudent")]
+        public async Task<ActionResult<APIResponse>> DeleteStudent(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return BadRequest();
+                }
+                var student = await _dbStudent.GetAsync(u => u.Id == id);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                await _dbStudent.RemoveAsync(student);
+                _response.StatusCode = HttpStatusCode.NoContent;
+                _response.IsSuccess = true;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }
